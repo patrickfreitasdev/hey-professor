@@ -18,6 +18,9 @@ jobs:
           php-version: '8.4'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, bcmath, redis
 
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
 
