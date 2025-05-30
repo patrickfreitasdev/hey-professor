@@ -45,7 +45,7 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
 
-      - name: Run Laravel tests via Artisan
+      - name: Run tests (Pest/Artisan) in parallel
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
