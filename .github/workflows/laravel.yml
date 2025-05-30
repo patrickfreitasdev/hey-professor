@@ -21,8 +21,8 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
+      - name: Install Composer dependencies (including dev)
+        run: composer install --optimize-autoloader
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -45,11 +45,11 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
 
-      - name: Run tests (Pest/Artisan) in parallel
+      - name: Run tests via Pest
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: php artisan test --parallel
+        run: vendor/bin/pest --parallel
 
       - name: Run Larastan
         run: vendor/bin/phpstan analyse
