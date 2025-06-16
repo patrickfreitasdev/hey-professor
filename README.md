@@ -1,4 +1,3 @@
-[![CI Develop](https://github.com/patrickfreitasdev/hey-professor/actions/workflows/laravel.yml/badge.svg?branch=develop)](https://github.com/patrickfreitasdev/hey-professor/actions/workflows/laravel.yml)
-[![CI Main](https://github.com/patrickfreitasdev/hey-professor/actions/workflows/laravel.yml/badge.svg?branch=main)](https://github.com/patrickfreitasdev/hey-professor/actions/workflows/laravel.yml)
+[![CI](https://github.com/patrickfreitasdev/hey-professor/actions/workflows/laravel.yml/badge.svg)](https://github.com/patrickfreitasdev/hey-professor/actions/workflows/laravel.yml)
 
 ## About hey professor
