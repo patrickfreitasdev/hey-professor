@@ -19,4 +19,6 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+Route::post('/question/store', [\App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
+
 require __DIR__ . '/auth.php';
