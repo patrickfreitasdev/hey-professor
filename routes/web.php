@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
+
+    if (app()->isLocal()) {
+        auth()->loginUsingId(1);
+
+        return to_route('dashboard');
+    }
+
     return view('welcome');
 })->name('home');
 
