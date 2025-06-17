@@ -39,11 +39,6 @@ it("Should not be able to like more than one time", function () {
     post(route('question.like', $question));
     post(route('question.like', $question));
 
-    expect(
-        $user
-            ->votes()
-            ->where('question_id', '=', $question->id)->count()
-    )
-            ->toBe(1);
+    expect($user->votes()->where('question_id', '=', $question->id)->count())->toBe(1);
 
 });
