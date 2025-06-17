@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, QuestionController};
+use App\Http\Controllers\{DashboardController, Question, QuestionController};
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -28,5 +28,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
+Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');
 
 require __DIR__ . '/auth.php';
