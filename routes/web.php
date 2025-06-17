@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\{DashboardController, QuestionController};
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -14,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -26,6 +27,6 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-Route::post('/question/store', [\App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
+Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
 
 require __DIR__ . '/auth.php';
