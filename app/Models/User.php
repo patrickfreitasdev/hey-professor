@@ -62,10 +62,10 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    /** @return HasMany<Vote, User> */
+    /** @return HasMany<Vote, $this> */
     public function votes(): HasMany
     {
-        /** @var HasMany<Vote, User> */
+        /** @var HasMany<Vote, $this> */
         return $this->hasMany(Vote::class);
     }
     public function like(Question $question): void
