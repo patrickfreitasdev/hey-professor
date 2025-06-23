@@ -1,0 +1,25 @@
+<?php
+
+use App\Models\Question;
+
+use function Pest\Laravel\get;
+
+it("Should list all the questions", function () {
+
+    //Arrange
+    $user = \App\Models\User::factory()->create();
+    \Pest\Laravel\actingAs($user);
+
+    $questions = Question::factory()->count(5)->create();
+
+    // Act
+    $response = get('dashboard');
+
+    // Assert
+
+    /** @var Question $q */
+    foreach ($questions as $q) {
+        $response->assertSee($q->getAttributeValue('question'));
+    }
+
+});

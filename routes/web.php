@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\{DashboardController, Question, QuestionController};
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
 
     if (app()->isLocal()) {
+
         auth()->loginUsingId(1);
 
         return to_route('dashboard');
@@ -14,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -26,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-Route::post('/question/store', [\App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
+Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
+Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');
+Route::post('/question/unlike/{question}', Question\UnlikeController::class)->name('question.unlike');
 
 require __DIR__ . '/auth.php';
