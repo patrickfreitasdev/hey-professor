@@ -9,7 +9,7 @@
             <button type="submit" class="flex items-center gap-2 text-green-500"><x-icons.thumbs-up class="w-5 h-5  hover:text-green-200 cursor-pointer" /><span>{{ $question->likes  }}</span></button>
         </x-form>
 
-        <x-form :action="route('question.like', $question)">
+        <x-form :action="route('question.unlike', $question)">
             <button type="submit"  class="flex items-center gap-2 text-red-500"><x-icons.thumbs-down class="w-5 h-5  hover:text-red-200 cursor-pointer" /><span>{{ $question->unlikes  }}</span></button>
         </x-form>
     </div>
