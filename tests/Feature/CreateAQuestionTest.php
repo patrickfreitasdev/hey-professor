@@ -4,7 +4,7 @@ use App\Models\User;
 
 use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, post};
 
-it("should be able to create a new question bigger than 10 characters", function () {
+it("should be able to create a new question bigger than 255 characters", function () {
 
     //AAA
 
@@ -58,5 +58,22 @@ it("Should be have at least 10 characters", function () {
     // Assert
     $request->assertSessionHasErrors(['question' => 'Are you sure that is a question? It is missing the question mark in the end.']);
     assertDatabaseCount('questions', 0);
+
+});
+
+it("Should create as draft all the time", function () {
+
+    // Arrange
+    $user = User::factory()->create();
+    actingAs($user);
+
+    // Act
+
+    $request = post(route('question.store'), [
+        'question' => str_repeat('*', 260) . '?',
+    ]);
+
+    // assert
+    assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?', 'draft' => true, ]);
 
 });
