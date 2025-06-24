@@ -77,3 +77,11 @@ it("Should create as draft all the time", function () {
     assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?', 'draft' => true, ]);
 
 });
+
+test("Only authenticated user can create a new question", function () {
+
+    post(route('question.store'), [
+        'question' => str_repeat('*', 8) . '?',
+    ])->assertRedirect(route('login'));
+
+});
