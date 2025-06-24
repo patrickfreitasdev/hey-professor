@@ -65,9 +65,15 @@ class User extends Authenticatable
     /** @return HasMany<Vote, $this> */
     public function votes(): HasMany
     {
-        /** @var HasMany<Vote, $this> */
         return $this->hasMany(Vote::class);
     }
+
+    /** @return HasMany<Question, $this> */
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class, 'created_by');
+    }
+
     public function like(Question $question): void
     {
         $this->votes()->updateOrCreate(
