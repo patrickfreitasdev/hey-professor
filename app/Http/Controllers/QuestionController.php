@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use Closure;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
+    public function index(): View
+    {
+
+        return view('question.index', [
+            'questions' => user()->questions,
+        ]);
+
+    }
+
     public function store(): RedirectResponse
     {
 
@@ -27,6 +37,7 @@ class QuestionController extends Controller
             ]
         );
 
-        return to_route('dashboard');
+        return back();
     }
+
 }
