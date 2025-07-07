@@ -22,6 +22,8 @@ class QuestionController extends Controller
     public function edit(Question $question): View
     {
 
+        Gate::authorize('update', $question);
+
         return \view('question.edit', compact('question'));
 
     }
