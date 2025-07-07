@@ -19,8 +19,10 @@ class QuestionController extends Controller
 
     }
 
-    public function edit(Question $question): void
+    public function edit(Question $question): View
     {
+
+        return \view('question.edit', compact('question'));
 
     }
 
