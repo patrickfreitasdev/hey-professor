@@ -2,7 +2,7 @@
 
 use App\Models\{Question, User};
 
-use function Pest\Laravel\{actingAs, put};
+use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, put};
 
 it("Should update a question", function () {
 
@@ -50,5 +50,75 @@ it("Should make sure that only the person who has created the question can updat
     actingAs($rightUser);
 
     put(route('question.update', $question), ['question' => 'New Question?'])->assertRedirect();
+
+});
+
+it("should be not able to update a new question bigger than 255 characters", function () {
+
+    $user     = User::factory()->create();
+    $question = Question::factory()
+        ->for($user, 'createdBy')->create(['draft' => true]);
+
+    actingAs($user);
+
+    // Act
+
+    $request = put(route('question.update', $question), [
+        'question' => str_repeat('*', 260) . '?',
+    ]);
+
+    // Assert
+    $request->assertRedirect();
+    assertDatabaseCount('questions', 1);
+    assertDatabaseHas('questions', [
+        'question' => str_repeat('*', 260) . '?',
+    ]);
+
+});
+
+it("should check if updated question ends with a question mark", function () {
+
+    // Arrange
+    $user     = User::factory()->create();
+    $question = Question::factory()
+        ->for($user, 'createdBy')->create(['draft' => true]);
+    actingAs($user);
+
+    // Act
+    $request = put(route('question.update', $question), [
+        'question' => str_repeat('*', 8) . '?',
+    ]);
+
+    // Assert
+    $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]);
+
+    assertDatabaseHas('questions', [
+        'question' => $question->question,
+    ]);
+
+    assertDatabaseCount('questions', 1);
+
+});
+
+it("Updated question should have at least 10 characters", function () {
+
+    // Arrange
+    $user     = User::factory()->create();
+    $question = Question::factory()
+        ->for($user, 'createdBy')->create(['draft' => true]);
+
+    actingAs($user);
+
+    // Act
+    $request = put(route('question.update', $question), [
+        'question' => str_repeat('*', 10),
+    ]);
+
+    // Assert
+    $request->assertSessionHasErrors(['question' => 'Are you sure that is a question? It is missing the question mark in the end.']);
+    assertDatabaseHas('questions', [
+        'question' => $question->question,
+    ]);
+    assertDatabaseCount('questions', 1);
 
 });
