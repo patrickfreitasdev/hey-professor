@@ -28,6 +28,15 @@ class QuestionController extends Controller
 
     }
 
+    public function update(Question $question): RedirectResponse
+    {
+
+        $question->question = request()->question;
+        $question->save();
+
+        return back();
+    }
+
     public function store(): RedirectResponse
     {
 
