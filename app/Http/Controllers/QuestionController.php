@@ -46,7 +46,7 @@ class QuestionController extends Controller
         $question->question = request()->question;
         $question->save();
 
-        return back();
+        return to_route('question.index');
     }
 
     public function store(): RedirectResponse
