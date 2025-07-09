@@ -26,12 +26,14 @@
                     <x-table.tr>
                         <x-table.td>{{$item->question}}</x-table.td>
                         <x-table.td>
-                            <x-form :action="route('question.publish', $item)" put>
-                                <button class="text-blue-500 hover:underline" type="submit">Publish</button>
-                            </x-form>
                             <x-form :action="route('question.destroy', $item)" delete>
                                 <button class="text-red-500 hover:underline" type="submit">Delete</button>
                             </x-form>
+                            <x-form :action="route('question.publish', $item)" put>
+                                <button class="text-blue-500 hover:underline" type="submit">Publish</button>
+                            </x-form>
+                            <a class="text-blue-500 hover:underline" href="{{route('question.edit', $item)}}">Edit</a>
+
                         </x-table.td>
                     </x-table.tr>
                 @endforeach

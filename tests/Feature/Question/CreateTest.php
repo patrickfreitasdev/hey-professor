@@ -4,7 +4,7 @@ use App\Models\User;
 
 use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, post};
 
-it("should be able to create a new question bigger than 255 characters", function () {
+it("should not be able to create a new question bigger than 255 characters", function () {
 
     //AAA
 
@@ -44,7 +44,7 @@ it("should check if ends with a question mark", function () {
 
 });
 
-it("Should be have at least 10 characters", function () {
+it("Should have at least 10 characters", function () {
 
     // Arrange
     $user = User::factory()->create();
