@@ -11,9 +11,10 @@ class DashboardController extends Controller
     {
         return view('dashboard', [
             'questions' => Question::query()
-                            ->withSum('votes', 'like')
-                            ->withSum('votes', 'unlike')
-                            ->get(),
+                ->withSum('votes', 'like')
+                ->withSum('votes', 'unlike')
+                ->orderByRaw('case when votes_sum_like is null then 0 else votes_sum_like end desc, votes_sum_unlike asc')
+                ->paginate(5),
         ]);
     }
 }
