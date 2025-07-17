@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Rules\SameQuestionRule;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
@@ -41,7 +42,10 @@ class QuestionController extends Controller
                     $fail('Are you sure that is a question? It is missing the question mark in the end.');
                 }
 
-            }],
+            },
+                new SameQuestionRule(),
+            ],
+
         ]);
 
         $question->question = request()->question;
@@ -60,7 +64,10 @@ class QuestionController extends Controller
                     $fail('Are you sure that is a question? It is missing the question mark in the end.');
                 }
 
-            }],
+            },
+                new SameQuestionRule(),
+            ],
+
         ]);
 
         user()->questions()->create(
