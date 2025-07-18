@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->unsignedBigInteger('question_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('question_id')->references('id')->on('questions')->cascadeOnDelete();
-            $table->foreign('user_id')->references('id')->on('questions')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->unsignedSmallInteger('like')->default(0);
             $table->unsignedSmallInteger('unlike')->default(0);
             $table->timestamps();
